@@ -20,6 +20,15 @@ export async function login(params: types.Login) {
 	}
 }
 
+export async function changePassword(params: types.ChangePasswordBody) {
+	try {
+		const newHashedPassword = bcrypt.hashSync(params.newPassword, 10);
+		await userRepository.changePassword({userId: params.userId, newHashedPassword});
+	} catch (error) {
+		console.log(error);
+		return
+	}
+}
 export async function deleteAccount(userId: number) {
 	try {
 		await userRepository.deleteAccount(userId);
@@ -28,15 +37,7 @@ export async function deleteAccount(userId: number) {
 		return
 	}
 }
-// export async function changePassword(params: types.ChangePasswordBody) {
-// 	try {
-// 		const new_hashed_password = bcrypt.hashSync(params.password, 10);
-// 		await userRepository.changePassword({userId: params.userId, new_hashed_password});
-// 	} catch (error) {
-// 		console.log(error);
-// 		return
-// 	}
-// }
+
 // export async function getUserInfo(userId: number) {
 // 	try {
 // 		return await userRepository.deleteAccount(userId)

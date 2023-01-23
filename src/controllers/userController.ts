@@ -18,37 +18,39 @@ export async function singIn(_req: Request, res: Response) {
   try {
     const userId: number = res.locals.user.id;
     const token: string = uuid();
-    await userService.login({ userId, token});
+    await userService.login({ userId, token });
     res.status(200).send(token);
-    
+
   } catch (error) {
     console.log(error);
     return res.sendStatus(500);
   }
 }
 
+export async function changePassword(req: Request, res: Response) {
+  try {
+    const userId: number = res.locals.user.id;
+    const newPassword: string = req.body.password;
+    await userService.changePassword({ userId, newPassword })
+    res.status(200).send({ message: "Password Changed Successfully" })
+
+  } catch (error) {
+    console.log(error);
+    return res.sendStatus(500);
+  }
+}
 export async function deleteAccount(_req: Request, res: Response) {
   try {
     const userId = res.locals.user.user_id;
     await userService.deleteAccount(userId)
-    res.status(200).send({message: "User Deleted Successfully"})
+    res.status(200).send({ message: "User Deleted Successfully" })
 
   } catch (error) {
     console.log(error);
     return res.sendStatus(500);
   }
 }
-// export async function changePassword(_req: Request, res: Response) {
-//   try {
-//     const userId = res.locals.user.rows[0].userId;
-//     await userService.deleteAccount(userId)
-//     res.status(200).send({message: "Password Changed Successfully"})
 
-//   } catch (error) {
-//     console.log(error);
-//     return res.sendStatus(500);
-//   }
-// }
 // export async function getUserInfo(_req: Request, res: Response) {
 //   try {
 //     const userId: number = res.locals.user.rows[0].userId;

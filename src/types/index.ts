@@ -16,10 +16,10 @@ export type Login = {
   token: string
 }
 
-// export type ChangePasswordBody = {
-//   userId: number,
-//   password: string
-// }
-// export type ChangePassword = Omit<ChangePasswordBody, "password"> & {
-//   new_hashed_password: string
-// }
+export type ChangePasswordBody = {
+  userId: number,
+  newPassword: string
+}
+export type ChangePassword = Omit<ChangePasswordBody, "newPassword"> & {
+  newHashedPassword: string
+}

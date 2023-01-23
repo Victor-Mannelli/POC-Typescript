@@ -37,6 +37,17 @@ export async function findUserId(token: string) {
     }
   })
 }
+export async function changePassword(params: types.ChangePassword) {
+  await prisma.user.update({
+    where: {
+      id: params.userId
+    },
+    data: {
+      password: params.newHashedPassword
+    }
+  })
+}
+
 export async function deleteAccount(userId: number) {
   await prisma.user.delete({
     where: {
@@ -44,11 +55,7 @@ export async function deleteAccount(userId: number) {
     }
   })
 }
-// export async function changePassword(params: types.ChangePassword) {
-//   await connection.query(
-//     "UPDATE users SET password = $1 WHERE id = $2", [props.userId, props.new_hashed_password]
-//   )
-// }
+
 // export async function getUserInfo(userId: number) {
 //   return await connection.query(
 //     "SELECT users.email, users.username FROM users WHERE id = $1", [userId]
