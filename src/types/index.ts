@@ -7,14 +7,14 @@ export type CreateNewUser = Omit<SignUpBody, "password"> & {
   hashedPassword: string
 }
 
-// export type SignInBody = {
-//   email: string,
-//   password: string
-// }
-// export type Login = {
-//   user_id: number,
-//   token: string
-// }
+export type SignInBody = {
+  email: string,
+  password: string
+}
+export type Login = {
+  user_id: number,
+  token: string
+}
 
 // export type ChangePasswordBody = {
 //   user_id: number,

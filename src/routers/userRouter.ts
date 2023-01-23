@@ -8,7 +8,7 @@ import { test } from "../controllers/testController";
 const userRouter = Router();
 
 userRouter.post("/signup", JoiValidation(authSchema.signUpSchema), authMiddleware.validateSignUp, userController.singUp)
-// userRouter.post("/signin", JoiValidation(authSchema.signInSchema), authMiddleware.validateSignIn, userController.singIn)
+userRouter.post("/signin", JoiValidation(authSchema.signInSchema), authMiddleware.validateSignIn, userController.singIn)
 // userRouter.delete("/delete", authMiddleware.validateAuthToken, userController.deleteAccount)
 // userRouter.post("/updatePassword", authMiddleware.validateAuthToken, userController.changePassword)
 // userRouter.get("/me", authMiddleware.validateAuthToken, userController.getUserInfo)

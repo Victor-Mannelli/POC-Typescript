@@ -14,19 +14,19 @@ export async function singUp(req: Request, res: Response) {
     return res.sendStatus(500);
   }
 }
-
-// export async function singIn(_req: Request, res: Response) {
-//   try {
-//     const user_id: number = res.locals.user.rows[0].user_id;
-//     const token: string = uuid();
-//     await userService.login({ user_id, token });
-//     res.status(200).send(token);
+export async function singIn(_req: Request, res: Response) {
+  try {
+    const user_id: number = res.locals.user.id;
+    const token: string = uuid();
+    await userService.login({ user_id, token});
+    res.status(200).send(token);
     
-//   } catch (error) {
-//     console.log(error);
-//     return res.sendStatus(500);
-//   }
-// }
+  } catch (error) {
+    console.log(error);
+    return res.sendStatus(500);
+  }
+}
+
 // export async function deleteAccount(_req: Request, res: Response) {
 //   try {
 //     const user_id = res.locals.user.rows[0].user_id;

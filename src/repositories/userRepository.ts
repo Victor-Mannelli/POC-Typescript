@@ -20,12 +20,16 @@ export async function createNewUser(params: types.CreateNewUser) {
     }
   })
 }
-// export async function login(props: types.Login) {
-//   await connection.query(
-//     `INSERT INTO sessions (id, token) VALUES ($1, $2)`,
-//     [props.user_id, props.token]
-//   );
-// }
+
+export async function login(params: types.Login) {
+  await prisma.session.create({
+    data: {
+      user_id: params.user_id,
+      token: params.token
+    }
+  })
+}
+
 // export async function findUserId(token: string) {
 //   return await connection.query(`SELECT * FROM sessions WHERE token = $1`, [token])
 // }
@@ -34,7 +38,7 @@ export async function createNewUser(params: types.CreateNewUser) {
 //     "DELETE FROM users WHERE id = $1", [user_id]
 //   )
 // }
-// export async function changePassword(props: types.ChangePassword) {
+// export async function changePassword(params: types.ChangePassword) {
 //   await connection.query(
 //     "UPDATE users SET password = $1 WHERE id = $2", [props.user_id, props.new_hashed_password]
 //   )
