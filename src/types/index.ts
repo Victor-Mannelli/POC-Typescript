@@ -12,12 +12,12 @@ export type SignInBody = {
   password: string
 }
 export type Login = {
-  user_id: number,
+  userId: number,
   token: string
 }
 
 // export type ChangePasswordBody = {
-//   user_id: number,
+//   userId: number,
 //   password: string
 // }
 // export type ChangePassword = Omit<ChangePasswordBody, "password"> & {

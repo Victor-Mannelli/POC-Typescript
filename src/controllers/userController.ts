@@ -16,9 +16,9 @@ export async function singUp(req: Request, res: Response) {
 }
 export async function singIn(_req: Request, res: Response) {
   try {
-    const user_id: number = res.locals.user.id;
+    const userId: number = res.locals.user.id;
     const token: string = uuid();
-    await userService.login({ user_id, token});
+    await userService.login({ userId, token});
     res.status(200).send(token);
     
   } catch (error) {
@@ -27,22 +27,22 @@ export async function singIn(_req: Request, res: Response) {
   }
 }
 
-// export async function deleteAccount(_req: Request, res: Response) {
-//   try {
-//     const user_id = res.locals.user.rows[0].user_id;
-//     await userService.deleteAccount(user_id)
-//     res.send(200).send({message: "User Deleted Successfully"})
+export async function deleteAccount(_req: Request, res: Response) {
+  try {
+    const userId = res.locals.user.user_id;
+    await userService.deleteAccount(userId)
+    res.status(200).send({message: "User Deleted Successfully"})
 
-//   } catch (error) {
-//     console.log(error);
-//     return res.sendStatus(500);
-//   }
-// }
+  } catch (error) {
+    console.log(error);
+    return res.sendStatus(500);
+  }
+}
 // export async function changePassword(_req: Request, res: Response) {
 //   try {
-//     const user_id = res.locals.user.rows[0].user_id;
-//     await userService.deleteAccount(user_id)
-//     res.send(200).send({message: "Password Changed Successfully"})
+//     const userId = res.locals.user.rows[0].userId;
+//     await userService.deleteAccount(userId)
+//     res.status(200).send({message: "Password Changed Successfully"})
 
 //   } catch (error) {
 //     console.log(error);
@@ -51,9 +51,9 @@ export async function singIn(_req: Request, res: Response) {
 // }
 // export async function getUserInfo(_req: Request, res: Response) {
 //   try {
-//     const user_id: number = res.locals.user.rows[0].user_id;
-//     const userInfo = await userService.getUserInfo(user_id)
-//     res.send(200).send(userInfo) //// test user info to aplly type and send only rows
+//     const userId: number = res.locals.user.rows[0].userId;
+//     const userInfo = await userService.getUserInfo(userId)
+//     res.status(200).send(userInfo) //// test user info to aplly type and send only rows
 
 //   } catch (error) {
 //     console.log(error);

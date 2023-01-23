@@ -35,21 +35,22 @@ export async function validateSignIn(req: Request, res: Response, next: NextFunc
 		res.sendStatus(500);
 	}
 }
-// export async function validateAuthToken(req: Request, res: Response, next: NextFunction) {
-// 	const header = req.headers.authorization;
-// 	if (!header) {
-// 		return res.status(401).send({ message: "Missing authorization header" });
-// 	}
-// 	try {
-// 		const token = header.replace("Bearer ", "");
-// 		const user_id = await repository.findUserId(token);
-// 		if (user_id.rows.length === 0) {
-// 			return res.status(404).send({ message: "User not found" });
-// 		}
+export async function validateAuthToken(req: Request, res: Response, next: NextFunction) {
+	const header = req.headers.authorization;
+	if (!header) {
+		return res.status(401).send({ message: "Missing authorization header" });
+	}
+	try {
+		const token = header.replace("Bearer ", "");
+		const user = await repository.findUserId(token);
+		if (user === null) {
+			return res.status(404).send({ message: "User not found" });
+		}
 
-// 		next();
-// 	} catch (error) {
-// 		console.log(error);
-// 		res.sendStatus(500);
-// 	}
-// }
+		res.locals.user = user;
+		next();
+	} catch (error) {
+		console.log(error);
+		res.sendStatus(500);
+	}
+}
