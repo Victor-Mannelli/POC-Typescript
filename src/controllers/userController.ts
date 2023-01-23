@@ -51,14 +51,15 @@ export async function deleteAccount(_req: Request, res: Response) {
   }
 }
 
-// export async function getUserInfo(_req: Request, res: Response) {
-//   try {
-//     const userId: number = res.locals.user.rows[0].userId;
-//     const userInfo = await userService.getUserInfo(userId)
-//     res.status(200).send(userInfo) //// test user info to aplly type and send only rows
+export async function getUserInfo(_req: Request, res: Response) {
+  try {
+    const userId: number = res.locals.user.id;
+    const userInfo = await userService.getUserInfo(userId)
+    
+    res.status(200).send(userInfo)
 
-//   } catch (error) {
-//     console.log(error);
-//     return res.sendStatus(500);
-//   }
-// }
+  } catch (error) {
+    console.log(error);
+    return res.sendStatus(500);
+  }
+}

@@ -56,8 +56,15 @@ export async function deleteAccount(userId: number) {
   })
 }
 
-// export async function getUserInfo(userId: number) {
-//   return await connection.query(
-//     "SELECT users.email, users.username FROM users WHERE id = $1", [userId]
-//   )
-// }
+export async function getUserInfo(userId: number) {
+  return await prisma.user.findFirst({
+    where: {
+      id: userId
+    },
+    select: {
+      id: true,
+      email: true,
+      username: true
+    }
+  })
+}

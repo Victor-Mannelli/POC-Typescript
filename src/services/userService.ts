@@ -38,11 +38,11 @@ export async function deleteAccount(userId: number) {
 	}
 }
 
-// export async function getUserInfo(userId: number) {
-// 	try {
-// 		return await userRepository.deleteAccount(userId)
-// 	} catch (error) {
-// 		console.log(error);
-// 		return
-// 	}
-// }
+export async function getUserInfo(userId: number) {
+	try {
+		return await userRepository.getUserInfo(userId)
+	} catch (error) {
+		console.log(error);
+		return
+	}
+}
