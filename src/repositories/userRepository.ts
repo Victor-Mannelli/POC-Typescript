@@ -1,20 +1,21 @@
 import connection from "../database/database";
+import * as types from "../types/index"
 
 export async function checkEmail(email: string) {
   return await connection.query(`SELECT * FROM users WHERE email = $1`, [
     email,
   ]);
 }
-export async function createNewUser({ email, username, hashedPassword }) {
+export async function createNewUser(props: types.CreateNewUser) {
   await connection.query(
     `INSERT INTO users (email, username, password, created_at) VALUES ($1, $2, $3, $4)`,
-    [email, username, hashedPassword, Date.now()]
+    [props.email, props.username, props.hashedPassword, Date.now()]
   );
 }
-export async function login({ user_id, token }) {
+export async function login(props: types.Login) {
   await connection.query(
     `INSERT INTO sessions (id, token) VALUES ($1, $2)`,
-    [user_id, token]
+    [props.user_id, props.token]
   );
 }
 export async function findUserId(token: string) {
@@ -25,8 +26,13 @@ export async function deleteAccount(user_id: number) {
     "DELETE FROM users WHERE id = $1", [user_id]
   )
 }
-export async function changePassword({ user_id, new_hashed_password }) {
+export async function changePassword(props: types.ChangePassword) {
   await connection.query(
-    "UPDATE users SET password = $1 WHERE id = $2", [user_id, new_hashed_password]
+    "UPDATE users SET password = $1 WHERE id = $2", [props.user_id, props.new_hashed_password]
+  )
+}
+export async function getUserInfo(user_id: number) {
+  return await connection.query(
+    "SELECT * FROM users WHERE id = $1", [user_id]
   )
 }
